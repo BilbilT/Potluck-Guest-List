@@ -1,4 +1,7 @@
 
+const assignButton = document.querySelector(".assign");
+const assignedItems = document.querySelector(".assigned-items");
+
 const addGuestButton = document.querySelector(".invite");
 const guestInputLabel = document.querySelector(".add-guest label");
 const guestInput = document.querySelector(".add-guest input");
@@ -16,6 +19,7 @@ addGuestButton.addEventListener("click", function () {
     clearInput();
   }
 });
+
 
 const clearInput = function () {
   guestInput.value = "";
@@ -40,3 +44,21 @@ const updateGuestCount = function () {
 
 };
 
+const assignItems = function () {
+  const potluckItems = ["Veggie Nori Rolls", "Hummus", "Cookies", "Fruits", "Chocolate", "Pasta", "Pilav", "Lamb Shish" ];
+  const allGuests = document.querySelectorAll(".guest-list li");
+  for (let guest of allGuests) {
+    const randomPotluckIndex = Math.floor(Math.random() * potluckItems.length);
+    const randomPotluckItem = potluckItems[randomPotluckIndex];
+    const listItem = document.createElement("li");
+    listItem.innerText =  `${guest.innerText} is bringing ${randomPotluckItem}.`;
+    assignedItems.append(listItem);
+    potluckItems.splice(randomPotluckIndex, 1); 
+  }
+
+};
+
+assignButton.addEventListener("click", function () {
+  assignItems();
+  assignButton.disabled = true;
+});
